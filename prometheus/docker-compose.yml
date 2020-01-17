@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: always
+    user: root
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./etc/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "./etc/rules:/etc/prometheus/rules"
+      - "/opt/docker/volumes/prometheus/data:/prometheus"
+    networks:
+      - promnet
+    depends_on:
+      - cadvisor
+      - alertmanager
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    user: root
+    ports:
+      - "9030:3000"
+    volumes:
+      - "/opt/docker/volumes/grafana/data:/var/lib/grafana"
+    networks:
+      - promnet
+    depends_on:
+      - prometheus
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "9080:8080"
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+    networks:
+      - promnet
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: always
+    user: root
+    ports:
+      - "9093:9093"
+    volumes:
+      - "./etc/alertmanager.yml:/etc/alertmanager/alertmanager.yml"
+      - "/opt/docker/volumes/alertmanager/data:/alertmanager"
+    networks:
+      - promnet
+
+  nodeexporter:
+    image: prom/node-exporter:latest
+    container_name: nodeexporter
+    restart: always
+    volumes:
+      - "/proc:/host/proc:ro"
+      - "/sys:/host/sys:ro"
+      - "/:/rootfs:ro"
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - promnet
+
+networks:
+  promnet:
+    driver: bridge

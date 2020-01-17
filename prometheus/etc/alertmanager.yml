@@ -1,0 +1,20 @@
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: 'smtp.exmail.qq.com:587'
+  smtp_from: 'sender@heylinux.com'
+  smtp_auth_username: 'sender@heylinux.com'
+  smtp_auth_password: 'password'
+  smtp_require_tls: true
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'default'
+
+receivers:
+- name: 'default'
+  email_configs:
+  - to: 'receiver@heylinux.com'
+    send_resolved: true

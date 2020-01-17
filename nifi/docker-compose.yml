@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nifi:
+    image: apache/nifi
+    container_name: nifi
+    restart: always
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "10000:10000"
+    volumes:
+      - "nifi_conf:/opt/nifi/nifi-current/conf"
+
+volumes:
+  nifi_conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: /opt/docker/volumes/nifi/conf
+      o: bind

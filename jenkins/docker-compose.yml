@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  jenkins:
+    image: jenkinsci/blueocean:latest
+    container_name: jenkins
+    user: root
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/opt/docker/volumes/jenkins/data:/var/jenkins_home"

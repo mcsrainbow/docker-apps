@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  docker:
+    image: dremio/dremio-oss:4.0
+    container_name: dremio-oss
+    ports:
+      - "9047:9047"
+      - "31010:31010"
+      - "45678:45678"
+    volumes:
+      - "dremio_data:/opt/dremio/data"
+
+volumes:
+  dremio_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /opt/docker/volumes/dremio/data
+      o: bind

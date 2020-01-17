@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# VIM
+*.sqp
+
+# pyc
+*.pyc
+
+# VSCode
+.vscode
+.idea
+
+# Terraform
+.terraform
+
+# Jupyter
+.ipynb_checkpoints
