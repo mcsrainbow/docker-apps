@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  docker:
+  redis:
     image: redis
     container_name: redis
     command: redis-server --requirepass password --appendonly yes
