@@ -42,7 +42,7 @@ services:
           - zabbix-server-mysql
           - zabbix-server-centos-mysql
           - zabbix-server-mysql-centos
-      zbx_net_frontend: null
+      zbx_net_frontend: 
     stop_grace_period: 30s
     sysctls:
       - net.ipv4.ip_local_port_range=1024 65000
@@ -95,7 +95,7 @@ services:
           - zabbix-proxy-mysql
           - zabbix-proxy-centos-mysql
           - zabbix-proxy-mysql-centos
-      zbx_net_frontend: null
+      zbx_net_frontend: 
     stop_grace_period: 30s
     labels:
       com.zabbix.description: Zabbix proxy with MySQL database support
@@ -142,7 +142,7 @@ services:
           - zabbix-web-nginx-mysql
           - zabbix-web-nginx-centos-mysql
           - zabbix-web-nginx-mysql-centos
-      zbx_net_frontend: null
+      zbx_net_frontend: 
     stop_grace_period: 10s
     sysctls:
       - net.core.somaxconn=65535
@@ -212,7 +212,7 @@ services:
       zbx_net_frontend:
         aliases:
           - zabbix-snmptraps
-      zbx_net_backend: null
+      zbx_net_backend: 
     stop_grace_period: 5s
     labels:
       com.zabbix.description: Zabbix snmptraps
