@@ -1,4 +1,5 @@
 version: '3.5'
+
 services:
   zabbix-server:
     image: 'zabbix/zabbix-server-mysql:centos-5.0.1'
@@ -54,6 +55,7 @@ services:
       com.zabbix.component: zabbix-server
       com.zabbix.dbtype: mysql
       com.zabbix.os: centos
+      
   zabbix-proxy-mysql:
     image: 'zabbix/zabbix-proxy-mysql:centos-5.0.1'
     ports:
@@ -101,6 +103,7 @@ services:
       com.zabbix.component: zabbix-proxy
       com.zabbix.dbtype: mysql
       com.zabbix.os: centos
+      
   zabbix-web-nginx-mysql:
     image: 'zabbix/zabbix-web-nginx-mysql:centos-5.0.1'
     ports:
@@ -150,6 +153,7 @@ services:
       com.zabbix.webserver: nginx
       com.zabbix.dbtype: mysql
       com.zabbix.os: centos
+      
   zabbix-agent:
     image: 'zabbix/zabbix-agent:centos-5.0.1'
     ports:
@@ -179,6 +183,7 @@ services:
       com.zabbix.company: Zabbix LLC
       com.zabbix.component: zabbix-agentd
       com.zabbix.os: centos
+      
   zabbix-java-gateway:
     image: 'zabbix/zabbix-java-gateway:centos-5.0.1'
     ports:
@@ -196,6 +201,7 @@ services:
       com.zabbix.company: Zabbix LLC
       com.zabbix.component: java-gateway
       com.zabbix.os: centos
+      
   zabbix-snmptraps:
     image: 'zabbix/zabbix-snmptraps:centos-5.0.1'
     ports:
@@ -213,6 +219,7 @@ services:
       com.zabbix.company: Zabbix LLC
       com.zabbix.component: snmptraps
       com.zabbix.os: ubuntu
+      
   mysql-server:
     image: 'mysql:8.0'
     command:
@@ -235,6 +242,7 @@ services:
           - mysql-server
           - zabbix-database
           - mysql-database
+          
   grafana:
     image: 'grafana/grafana:7.0.3'
     container_name: grafana
@@ -247,10 +255,12 @@ services:
       zbx_net_backend:
         aliases:
           - grafana
+          
   db_data_mysql:
     image: busybox
     volumes:
       - './zbx_env/var/lib/mysql:/var/lib/mysql:rw'
+      
 networks:
   zbx_net_frontend:
     driver: bridge
@@ -269,6 +279,7 @@ networks:
       driver: default
       config:
         - subnet: 172.16.239.0/24
+        
 secrets:
   MYSQL_USER:
     file: ./.MYSQL_USER
