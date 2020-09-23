@@ -2,7 +2,7 @@ version: "3"
 
 services:
   dremio:
-    image: dremio/dremio-oss:4.0
+    image: dremio/dremio-oss:4.1.7
     container_name: dremio-oss
     ports:
       - "9047:9047"
