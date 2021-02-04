@@ -7,7 +7,7 @@ services:
     privileged: true
     restart: always
     hostname: 'gitlab.heylinux.com'
-    environment
+    environment:
       TZ: 'Asia/Shanghai'
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://gitlab.heylinux.com:8080'
