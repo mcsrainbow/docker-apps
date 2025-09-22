@@ -1,0 +1,23 @@
+execution:
+  type: streaming
+  result-mode: table
+  parallelism: 1
+
+configuration:
+  execution.checkpointing.interval: 10 s
+  execution.checkpointing.mode: EXACTLY_ONCE
+  execution.checkpointing.min-pause: 1 s
+  execution.checkpointing.timeout: 5 min
+
+  state.checkpoints.dir: file:///opt/flink/output/checkpoints
+
+  restart-strategy: fixed-delay
+  restart-strategy.fixed-delay.attempts: 10
+  restart-strategy.fixed-delay.delay: 5 s
+
+  table.exec.sink.not-null-enforcer: drop
+  table.exec.sink.upsert-materialize: none
+  table.exec.source.idle-timeout: 5 s
+
+deployment:
+  response-timeout: 10000
