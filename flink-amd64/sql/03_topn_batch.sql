@@ -2,6 +2,7 @@
 
 SET 'execution.runtime-mode' = 'batch';
 SET 'sql-client.execution.result-mode' = 'TABLEAU';
+SET 'table.dml-sync' = 'true';
 
 CREATE TABLE orders_jdbc (
   order_id INT,
